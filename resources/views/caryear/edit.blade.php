@@ -42,6 +42,39 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Brand <span class="required-star">*</span></label>
+                                          <select name="brand_id"  class="form-control">
+                                        @foreach ($brand as $data )
+
+                                        @if ($caryears->brand_id == $data->id)
+                                            <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                            @else
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                        @endif
+
+                                        @endforeach
+
+                                    </select>
+                                    </div>
+
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Model <span class="required-star">*</span></label>
+                                          <select name="brand_id"  class="form-control">
+                                        @foreach ($car as $data )
+
+                                        @if ($caryears->car_id == $data->id)
+                                            <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                            @else
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                        @endif
+
+                                        @endforeach
+
+                                    </select>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Year <span class="required-star">*</span></label>
                                         <input type="text" class="form-control" name="year" value="{{$caryears->year}}"
                                            placeholder="Enter Category Name" required>
@@ -51,6 +84,7 @@
                                         </span>
                                         @enderror
                                     </div>
+
 
 
 

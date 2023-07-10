@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\modelprice;
 use App\Models\car;
 use App\Models\brand;
+use App\Models\caryear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ModelpriceController extends Controller
 {
@@ -26,7 +28,40 @@ class ModelpriceController extends Controller
      */
     public function model_get(Request $request)
     {
-        return $request->brand;
+         $car_model = car::where(['brand_id'=> $request->brand])->get();
+
+         $html = "";
+          $html .="<select class='form-control' id='car_model' name='car_id'>";
+          $html.="<option>Select Model</option>";
+         foreach($car_model->unique('name') as $data){
+
+            $html.= "<option value='{$data->id}'>{$data->name}</option>";
+
+         }
+
+         $html .="</select>";
+          return $html;
+
+
+    }
+    public function year_get(Request $request)
+    {
+         $car_model = caryear::where(['car_id'=> $request->model])->get();
+
+
+         $html = "";
+          $html .="<select class='form-control'  name='caryear_id'>";
+          $html.="<option>Select Year</option>";
+         foreach($car_model->unique('name') as $data){
+
+            $html.= "<option value='{$data->id}'>{$data->year}</option>";
+
+         }
+
+         $html .="</select>";
+          return $html;
+
+
     }
 
     /**
@@ -37,7 +72,17 @@ class ModelpriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $model = new modelprice();
+         $model->brand_id = $request->brand_id;
+         $model->car_id = $request->car_id;
+         $model->caryear_id = $request->caryear_id;
+         $model->normal_services = $request->normal_services;
+         $model->checkup = $request->checkup;
+
+         Session::flash('message','Model price created successfully!');
+         Session::flash('alert-class','alert-success');
+         return redirect('/model-price-add');
     }
 
     /**
@@ -50,7 +95,8 @@ class ModelpriceController extends Controller
     {
          $brand = brand::all();
          $car = car::all();
-         return view("model_price.add",compact('car','brand'));
+         $year = caryear::all();
+         return view("model_price.add",compact('car','brand','year'));
     }
 
     /**

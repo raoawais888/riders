@@ -19,7 +19,10 @@ return new class extends Migration
             $table->foreign('car_id')->references('id')->on('cars');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->double('price');
+            $table->unsignedBigInteger('caryear_id');
+            $table->foreign('caryear_id')->references('id')->on('caryears');
+            $table->double('normal_price');
+            $table->double('checkup');
             $table->timestamps();
         });
     }

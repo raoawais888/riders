@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\brand;
+use App\Models\Caryear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 class CarModelController extends Controller
@@ -15,7 +16,7 @@ class CarModelController extends Controller
      */
     public function index()
     {
-        $carmodels = Car::with('brand')->get();
+        $carmodels = Car::with('brand','caryear')->get();
         return view('carmodel.view',compact('carmodels'));
     }
 
@@ -27,7 +28,8 @@ class CarModelController extends Controller
     public function create()
     {
         $brand = brand::all();
-        return view('carmodel.add',compact('brand'));
+        $year = caryear::all();
+        return view('carmodel.add',compact('brand','year'));
     }
 
     /**
@@ -75,7 +77,8 @@ class CarModelController extends Controller
     {
         $carmodels = Car::where(['id'=>$id])->first();
         $brand = brand::all();
-        
+
+
         if($carmodels == null)
         {
             return redirect()->back()->with('error', 'No Record Found.');
@@ -99,6 +102,7 @@ class CarModelController extends Controller
             $carmodel = Car::where('id', $id)->first();
                $carmodel->name = $request->name;
                $carmodel->brand_id = $request->brand_id;
+               $carmodel->caryear_id = $request->caryear_id;
             $carmodel->update();
             Session::flash('message', 'Car Model Updated Successfully');
             Session::flash('alert-class','alert-success');

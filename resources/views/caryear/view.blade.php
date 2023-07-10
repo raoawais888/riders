@@ -58,6 +58,8 @@
                     <tr>
                       <th>#</th>
                       <th>Year</th>
+                      <th>Brand</th>
+                      <th>Model</th>
                       <th class="text-center">Actions</th>
                     </tr>
                   </thead>
@@ -67,6 +69,8 @@
                         <td>{{$key+1}}</td>
 
                         <td>{{$caryear->year}}</td>
+                        <td>{{$caryear->brand->name}}</td>
+                        <td>{{$caryear->car->name}}</td>
                         <td width="10%" class="p-0 pt-3">
                             <div class="actions text-center">
                               <span>

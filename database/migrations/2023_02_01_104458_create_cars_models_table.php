@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');
+            $table->unsignedBigInteger('caryear_id');
+            $table->foreign('caryear_id')->references('id')->on('caryears');
             $table->timestamps();
         });
     }

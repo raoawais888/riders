@@ -68,7 +68,10 @@ Route::middleware('auth')->group(function () {
         //
         Route::get('model-price',[ModelpriceController::class, 'index']);
         Route::get('/add-model-price',[ModelpriceController::class, 'show']);
+        // Route::post('/add-model-price',[ModelpriceController::class, 'store']);
         Route::get('/model-fetch',[ModelpriceController::class, 'model_get']);
+        Route::get('/year-fetch',[ModelpriceController::class, 'year_get']);
+        Route::post('/model-price-add',[ModelpriceController::class, 'store']);
 
 });
 

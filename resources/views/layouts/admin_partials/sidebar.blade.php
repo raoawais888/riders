@@ -114,7 +114,7 @@
            <a href="{{route('price.index')}}" class="nav-link {{request()->is('price*')?'active':''}}">
              <i class="nav-icon fa fa-credit-card"></i>
              <p>
-               CheckUp Price
+               Advance Price
              </p>
            </a>
          </li>

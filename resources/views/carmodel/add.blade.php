@@ -50,12 +50,26 @@
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Select Brand <span class="required-star">*</span></label>
                                         <select name="brand_id" id="" class="form-control">
+                                            <option disabled selected>Select Brand</option>
                                             @foreach($brand as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                             @endforeach
-                                           
+
                                         </select>
                                     </div>
+
+                                    {{-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Year<span class="required-star">*</span></label>
+
+                                        <select name="caryear_id" id="" class="form-control">
+                                            <option disabled selected>Select Year</option>
+                                            @foreach($year as $data)
+                                            <option value="{{$data->id}}">{{$data->year}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div> --}}
+
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Name <span class="required-star">*</span></label>
                                         <input type="text" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="name"

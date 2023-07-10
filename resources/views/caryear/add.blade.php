@@ -1,6 +1,6 @@
 @extends('layouts.admin_app')
 @section('page_title')
- Add Models
+ Add Category
 @endsection
 @section('main_content')
 <style>
@@ -13,11 +13,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Car Years</h1>
+                    <h1>Manage Price</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('categories.index')}}" class="btn btn-success"><i class="fas fa-arrow-left"></i>Back</a>
+                        <li class="breadcrumb-item"><a href="" class="btn btn-success"><i class="fas fa-arrow-left"></i>Back</a>
                         </li>
                     </ol>
                 </div>
@@ -39,17 +39,38 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Car Year</h3>
+                            <h3 class="card-title">Add Price</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{route('caryears.store')}}" method="POST">
+                        <form action="{{route('caryears.store')}}" method="POST" >
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Brand <span class="required-star">*</span></label>
+                                        <select name="brand_id" id="brand" class="form-control">
+                                            <option  disabled selected>Select Brand</option>
+                                            @foreach($brand as $data)
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+                                        <label>Select Model <span class="required-star">*</span></label>
+                                        <div id="model">
+                                            <section class="form-control">
+                                            </section>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Year <span class="required-star">*</span></label>
-                                        <input type="text"  class="form-control @error('name') is-invalid @enderror" name="year"
+                                        <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="year"
                                             value="{{old('name')}}" placeholder="Enter Year" required>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -83,6 +104,32 @@
 @endsection
 @section('custom_scripts')
     <script>
+
+        $(document).ready(function(){
+            $("#brand").on("change",function(){
+
+                let brand = $(this).val();
+
+                $.ajax({
+                    url:"{{url('/model-fetch')}}",
+                    data:{brand},
+                    success:function(data){
+                       $("#model").html(data);
+                    }
+                })
+
+            })
+
+
+
+
+
+
+            })
+
+
+
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
