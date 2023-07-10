@@ -41,6 +41,22 @@
                         @csrf
                             <div class="card-body">
                                 <div class="row">
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Brand <span class="required-star">*</span></label>
+                                        <select name="brand_id" id="" class="form-control">
+                                            @foreach($brand as $data)
+                                            @if($data->id == $carmodels->brand_id)
+                                            <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                            @else
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                            @endif
+                                           
+                                            @endforeach
+                                           
+                                        </select>
+                                    </div>
+                                    
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Name <span class="required-star">*</span></label>
                                         <input type="text" class="form-control" name="name" value="{{$carmodels->name}}"

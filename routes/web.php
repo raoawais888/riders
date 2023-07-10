@@ -66,8 +66,9 @@ Route::middleware('auth')->group(function () {
 
         //   model price
         //
-        Route::get('/model-price',[ModelpriceController::class, 'index']);
+        Route::get('model-price',[ModelpriceController::class, 'index']);
         Route::get('/add-model-price',[ModelpriceController::class, 'show']);
+        Route::get('/model-fetch',[ModelpriceController::class, 'model_get']);
 
 });
 

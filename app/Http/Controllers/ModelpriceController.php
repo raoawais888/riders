@@ -24,9 +24,9 @@ class ModelpriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function model_get(Request $request)
     {
-        //
+        return $request->brand;
     }
 
     /**

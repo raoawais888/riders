@@ -17,16 +17,23 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('number');
-            $table->email('email');
+            $table->string('email');
             $table->string('date');
             $table->string('time');
-            $table->string('brand');
-            $table->string('model');
             $table->string('year');
             $table->string('service');
+            $table->string('checkup');
+            $table->double('price');
+            $table->double('advance');
+            $table->double('total_price');
+
+            $table->unsignedBigInteger('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->unsignedBigInteger('car_id');
+            $table->foreign('car_id')->references('id')->on('cars');
+
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->double('price');
             $table->timestamps();
         });
     }
