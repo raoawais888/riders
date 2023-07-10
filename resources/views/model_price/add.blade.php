@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('price.index')}}" class="btn btn-success"><i class="fas fa-arrow-left"></i>Back</a>
+                        <li class="breadcrumb-item"><a href="" class="btn btn-success"><i class="fas fa-arrow-left"></i>Back</a>
                         </li>
                     </ol>
                 </div>
@@ -48,8 +48,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Brand <span class="required-star">*</span></label>
+                                        <select name="brand_id" id="brand" class="form-control">
+                                            <option  disabled selected>Select Brand</option>
+                                            @foreach($brand as $data)
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                            @endforeach
+                                           
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
 
-                                        <label>price <span class="required-star">*</span></label>
+                                        <label>Select Model <span class="required-star">*</span></label>
                                         <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="price"
                                             value="{{old('name')}}" placeholder="Enter Price" required>
                                        
@@ -91,6 +101,23 @@
 @endsection
 @section('custom_scripts')
     <script>
+      
+        $(document).ready(function(){
+            $("#brand").on("change",function(){
+               
+                let brand = $(this).val();
+                 
+                $.ajax({
+                    url:"{{url('/model-fetch')}}",
+                    data:{brand},
+                    success:function(data){
+                        alert(data);
+                    }
+                })
+
+            })
+        })
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

@@ -48,6 +48,15 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Select Brand <span class="required-star">*</span></label>
+                                        <select name="brand_id" id="" class="form-control">
+                                            @foreach($brand as $data)
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                            @endforeach
+                                           
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Name <span class="required-star">*</span></label>
                                         <input type="text" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{old('name')}}" placeholder="Enter Car Model Name" required>

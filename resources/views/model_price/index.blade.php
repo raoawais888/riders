@@ -33,7 +33,7 @@
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item active">
-                  <a href="{{route('/add-model-price')}}" class="btn btn-success float-right">Add New Price</a>
+                  <a href="{{url("/add-model-price")}}" class="btn btn-success float-right">Add New Price</a>
                   </li>
                 </ol>
               </div><!-- /.col -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 class CarModelController extends Controller
@@ -14,7 +15,7 @@ class CarModelController extends Controller
      */
     public function index()
     {
-        $carmodels = Car::all();
+        $carmodels = Car::with('brand')->get();
         return view('carmodel.view',compact('carmodels'));
     }
 
@@ -25,7 +26,8 @@ class CarModelController extends Controller
      */
     public function create()
     {
-        return view('carmodel.add');
+        $brand = brand::all();
+        return view('carmodel.add',compact('brand'));
     }
 
     /**
@@ -36,6 +38,7 @@ class CarModelController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
 
             'name' => 'required|min:3'
@@ -44,6 +47,7 @@ class CarModelController extends Controller
 
           $model = new Car();
           $model->name = $name ;
+          $model->brand_id = $request->brand_id ;
           $model->save();
         Session::flash('message','Car Model created successfully!');
         Session::flash('alert-class','alert-success');
@@ -69,12 +73,14 @@ class CarModelController extends Controller
      */
     public function edit($id)
     {
-        $carmodels = Car::findOrFail($id);
+        $carmodels = Car::where(['id'=>$id])->first();
+        $brand = brand::all();
+        
         if($carmodels == null)
         {
             return redirect()->back()->with('error', 'No Record Found.');
         }
-        return view('carmodel.edit',compact('carmodels'));
+        return view('carmodel.edit',compact('carmodels','brand'));
     }
 
     /**
@@ -92,6 +98,7 @@ class CarModelController extends Controller
             ]);
             $carmodel = Car::where('id', $id)->first();
                $carmodel->name = $request->name;
+               $carmodel->brand_id = $request->brand_id;
             $carmodel->update();
             Session::flash('message', 'Car Model Updated Successfully');
             Session::flash('alert-class','alert-success');
