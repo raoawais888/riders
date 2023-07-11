@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caryear;
+use App\Models\brand;
+use App\Models\car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -15,7 +17,8 @@ class CaryearController extends Controller
      */
     public function index()
     {
-        $caryears = Caryear::all();
+        $caryears = Caryear::with('car','brand')->get();
+        // dd($caryears);
         return view('caryear.view',compact('caryears'));
     }
 
@@ -26,7 +29,9 @@ class CaryearController extends Controller
      */
     public function create()
     {
-        return view('caryear.add');
+        $brand = brand::all();
+        $car = car::all();
+        return view('caryear.add',compact('brand','car'));
     }
 
     /**
@@ -37,6 +42,8 @@ class CaryearController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
 
             'year' => 'required|min:3'
@@ -45,6 +52,8 @@ class CaryearController extends Controller
 
           $model = new Caryear();
           $model->year = $year ;
+          $model->brand_id = $request->brand_id ;
+          $model->car_id = $request->car_id ;
           $model->save();
         Session::flash('message','Car Year created successfully!');
         Session::flash('alert-class','alert-success');
@@ -71,11 +80,14 @@ class CaryearController extends Controller
     public function edit($id)
     {
         $caryears = Caryear::findOrFail($id);
+        $brand = brand::all();
+        $car = car::all();
+
         if($caryears == null)
         {
             return redirect()->back()->with('error', 'No Record Found.');
         }
-        return view('caryear.edit',compact('caryears'));
+        return view('caryear.edit',compact('caryears','brand','car'));
     }
     /**
      * Update the specified resource in storage.
@@ -92,6 +104,8 @@ class CaryearController extends Controller
             ]);
             $caryear = Caryear::where('id', $id)->first();
             $caryear->year = $request->year;
+            $caryear->brand_id = $request->brand_id ;
+            $caryear->car_id = $request->car_id ;
             $caryear->update();
             Session::flash('message', 'Car Year Updated Successfully');
             Session::flash('alert-class','alert-success');

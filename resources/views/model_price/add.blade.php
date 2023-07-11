@@ -43,7 +43,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{route('price.store')}}" method="POST" >
+                        <form action="{{url('model-price-add')}}" method="POST" >
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="row">
@@ -54,20 +54,43 @@
                                             @foreach($brand as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                             @endforeach
-                                           
+
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
 
                                         <label>Select Model <span class="required-star">*</span></label>
-                                        <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="price"
-                                            value="{{old('name')}}" placeholder="Enter Price" required>
-                                       
+                                        <div id="model">
+                                            <section class="form-control">
+                                            </section>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+                                        <label>Select year <span class="required-star">*</span></label>
+                                        <div id="years">
+                                            <section class="form-control">
+                                            </section>
+                                        </div>
+
+
                                     </div>
 
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <label>price <span class="required-star">*</span></label>
-                                        <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="price"
+                                        <label>Normal Service price <span class="required-star">*</span></label>
+                                        <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="normal_service"
+                                            value="{{old('name')}}" placeholder="Enter Price" required>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Checkup price <span class="required-star">*</span></label>
+                                        <input type="number" maxlength="50" class="form-control @error('name') is-invalid @enderror" name="checkup"
                                             value="{{old('name')}}" placeholder="Enter Price" required>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -101,22 +124,45 @@
 @endsection
 @section('custom_scripts')
     <script>
-      
+
         $(document).ready(function(){
             $("#brand").on("change",function(){
-               
+
                 let brand = $(this).val();
-                 
+
                 $.ajax({
                     url:"{{url('/model-fetch')}}",
                     data:{brand},
                     success:function(data){
-                        alert(data);
+                       $("#model").html(data);
                     }
                 })
 
             })
-        })
+
+
+            // year get by model
+
+
+            $(document).on("change", "#car_model",function(){
+
+                let model = $(this).val();
+                $.ajax({
+                    url:"{{url('/year-fetch')}}",
+                    data:{model},
+                    success:function(data){
+                       $("#years").html(data);
+                    }
+                })
+
+            })
+
+
+
+            })
+
+
+
 
         function readURL(input) {
             if (input.files && input.files[0]) {
