@@ -43,7 +43,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{url('model-price-add')}}" method="POST" >
+                        <form action="{{url('/model-price-add')}}" method="POST" >
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="row">

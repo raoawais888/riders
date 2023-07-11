@@ -72,17 +72,16 @@ class ModelpriceController extends Controller
      */
     public function store(Request $request)
     {
-
         $model = new modelprice();
          $model->brand_id = $request->brand_id;
          $model->car_id = $request->car_id;
          $model->caryear_id = $request->caryear_id;
-         $model->normal_services = $request->normal_services;
+         $model->normal_service = $request->normal_services;
          $model->checkup = $request->checkup;
-
+         $model->save();
          Session::flash('message','Model price created successfully!');
          Session::flash('alert-class','alert-success');
-         return redirect('/model-price-add');
+         return redirect('/add-model-price');
     }
 
     /**
