@@ -46,10 +46,7 @@ class AppoinmentController extends Controller
      */
     public function store(Request $request)
     {
-
-
         // dd($request->all());
-
          $number = "+965".$request->number;
 
 
@@ -64,14 +61,15 @@ class AppoinmentController extends Controller
             $model->date = $request->date;
             $model->time = $request->time;
             $model->brand_id = $request->brand;
-            $model->car_id = $request->model;
-            $model->year = $request->year;
+            $model->car_id = $request->car_id;
+            $model->year = $request->caryear_id;
             $model->service = $request->service;
             $model->price = $request->price;
             $model->location_id = $request->location;
             $model->advance = $request->advance;
             $model->checkup = $request->checkup;
             $model->total_price = $request->total_price;
+            $model->service_price = $request->service_price;
             $model->save();
             $id = $model->id;
 

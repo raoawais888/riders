@@ -29,39 +29,39 @@ class ModelpriceController extends Controller
     public function model_get(Request $request)
     {
          $car_model = car::where(['brand_id'=> $request->brand])->get();
-
-         $html = "";
+          $html = "";
           $html .="<select class='form-control' id='car_model' name='car_id'>";
           $html.="<option>Select Model</option>";
          foreach($car_model->unique('name') as $data){
-
             $html.= "<option value='{$data->id}'>{$data->name}</option>";
-
          }
-
          $html .="</select>";
           return $html;
-
-
     }
     public function year_get(Request $request)
     {
          $car_model = caryear::where(['car_id'=> $request->model])->get();
-
-
          $html = "";
-          $html .="<select class='form-control'  name='caryear_id'>";
+          $html .= "<select class='form-control'  name='caryear_id' id='caryear_id'>";
           $html.="<option>Select Year</option>";
          foreach($car_model->unique('name') as $data){
-
             $html.= "<option value='{$data->id}'>{$data->year}</option>";
-
          }
-
          $html .="</select>";
           return $html;
+    }
+    public function price_get(Request $request)
+    {
+        $price = 0;
+        if($request->checkup){
+            $query = modelprice::where(['car_id' => $request->model, 'brand_id' => $request->brand, 'caryear_id'=> $request->caryear])->first('checkup');
+            $price = $query->checkup;
+        }else{
+            $query = modelprice::where(['car_id' => $request->model, 'brand_id' => $request->brand, 'caryear_id' => $request->caryear])->first('normal_price');
+            $price = $query->normal_price;
 
-
+        }
+        echo $price;
     }
 
     /**
@@ -76,7 +76,7 @@ class ModelpriceController extends Controller
          $model->brand_id = $request->brand_id;
          $model->car_id = $request->car_id;
          $model->caryear_id = $request->caryear_id;
-         $model->normal_service = $request->normal_services;
+         $model->normal_price = $request->normal_service;
          $model->checkup = $request->checkup;
          $model->save();
          Session::flash('message','Model price created successfully!');

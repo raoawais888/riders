@@ -132,14 +132,9 @@ $("#mobile_code").intlTelInput({
   </script>
 
   <script>
-        $(document).on('click', 'input[type="checkbox"]', function() {
+    $(document).on('click', 'input[type="checkbox"]', function() {
     $('input[type="checkbox"]').not(this).prop('checked', false);
-
-
-});
-
-
-
+    });
     $(document).ready(function() {
 
         $("#time").on("change",function(){
@@ -157,85 +152,18 @@ $("#mobile_code").intlTelInput({
                 icon: 'error',
                 title: 'Opss Sorry!',
                 text: 'This Slot Not Available Today Already Booked',
-
-                })
-
-
-                }else{
-
+                });
                 }
-
             }
+        });
 
-
-        })
-
-})
-
-
-
-      $("#normal_price").on("click", function() {
-        if ($('#normal_price').is(':checked')) {
-
-          $(".hide_field").slideDown(500);
-
-        } else {
-          $(".hide_field").slideUp(500);
-        }
-
-      })
-
-      $("#major_price").on("click", function() {
-        if ($('#major_price').is(':checked')) {
-
-            $(".hide_field").slideUp(500);
-
-        } else {
-          $(".major_hide").slideUp(500);
-        }
-
-      })
-
-
-
+});
 
       $('input[type="radio"]').click(function() {
         $(".check_class").attr("checked", false);
         $(this).attr("checked", true);
       });
-
-
-      $("#location").on("change", function() {
-
-        let location = $(this).val();
-
-        $.ajax({
-
-          url: "{{url('location_price')}}",
-          data: {
-            location
-          },
-          success: function(data) {
-
-            let check_price = $("#check_price").val();
-            let total_price = parseInt(check_price) + parseInt(data);
-            $("#price").val(data);
-            $("#total_price").val(total_price);
-          }
-
-
-        })
-
-      });
-
-
-
-      //    validation form code
-
-
-
-
-    })
+});
 
 
 

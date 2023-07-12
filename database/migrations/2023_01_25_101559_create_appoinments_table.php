@@ -21,11 +21,12 @@ return new class extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('year');
-            $table->string('service');
-            $table->string('checkup');
+            $table->string('service')->nullable();
+            $table->string('checkup')->nullable();
             $table->double('price');
             $table->double('advance');
             $table->double('total_price');
+            $table->double('service_price');
 
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');

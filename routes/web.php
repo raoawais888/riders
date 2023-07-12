@@ -41,7 +41,7 @@ Route::get('/location_price', [HomeController::class, 'price']);
 
 Route::get('/dashboard', function () {
     return view('admin_dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'adminAccess'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
         // Route::post('/add-model-price',[ModelpriceController::class, 'store']);
         Route::get('/model-fetch',[ModelpriceController::class, 'model_get']);
         Route::get('/year-fetch',[ModelpriceController::class, 'year_get']);
+        Route::get('/price-fetch',[ModelpriceController::class, 'price_get']);
         Route::post('/model-price-add',[ModelpriceController::class, 'store']);
 
 
